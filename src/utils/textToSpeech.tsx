@@ -1,4 +1,4 @@
-import { stat } from "fs";
+"use client"
 import { toast } from "sonner";
 
 let voices: SpeechSynthesisVoice[] = [];
