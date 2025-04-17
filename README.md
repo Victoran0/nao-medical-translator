@@ -2,7 +2,8 @@
 
 The purpose of this demo is to showcase how you can build a Healthcare Translation Web App with Generative AI using NextJS + langchain + groq + vercel ai sdk + Web Speech API.
 
-_Note that the Web Speech API's Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead. You can confirm this on the [Demo Provided by Google](https://www.google.com/intl/en/chrome/demos/speech.html)_
+_Note that the Web Speech API's Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead._  
+_You can confirm this on the [Demo Provided by Google](https://www.google.com/intl/en/chrome/demos/speech.html)_
 
 ## Quickstart
 
@@ -56,11 +57,11 @@ npm run dev
   <br><br>
   ![Select Languages](./public/screenshots/3..png)
   <br><br><br>
-- Speech will be trasncribed into the text area once input and output languages are set and speak button is clicked
+- Speech will be transcribed into the text area once input and output languages are set and the "Speak" button is clicked
   <br><br>
   ![Speech Transcription](./public/screenshots/4..png)
   <br><br><br>
-- Allow Nao Medical Translator to finish translating
+- Let Nao Medical Translator do it's work
   <br><br>
   ![Translating](./public/screenshots/5..png)
   <br><br><br>
@@ -72,18 +73,21 @@ npm run dev
   <br><br>
   ![Play Translation](./public/screenshots/7..png)
   <br><br><br>
-- Click on the stop button to stop listening to the translation
+- While listening to a translation, click on the stop button to stop listening to it
   <br><br>
   ![Stop Playing Translation](./public/screenshots/8..png)
   <br><br><br>
-- You can play and stop any of the previous translations. When a translation is currently being played and you play another, the Translator stops speaking the previous.
+- You can play any of the previous translations.
   <br><br>
   ![handling Multiple Translation](./public/screenshots/9..png)
+  <br><br><br>
+- When a translation is currently being played and you play another, the Translator stops speaking the previous.
+  <br><br>
   ![handling Multiple Translation II](./public/screenshots/9b.png)
   ![handling Multiple Translation III](./public/screenshots/9c.png)
-  <br><br>
+  <br><br><br>
 - Responsive user interface irregardless of the screen size
-  <br>
+  <br><br>
   ![Responsive UI](./public/screenshots/10..png)
   <br><br>
   ![Responsive UI II](./public/screenshots/10b.png)
