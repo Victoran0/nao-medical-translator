@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nao Medical Translator
 
-## Getting Started
+The purpose of this demo is to showcase how you can build a Healthcare Translation Web App with Generative AI using NextJS + langchain + groq + vercel ai sdk + Web Speech API.
 
-First, run the development server:
+_Note that the Web Speech API's Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead. You can confirm this on the [Demo Provided by Google](https://www.google.com/intl/en/chrome/demos/speech.html)_
+
+## Quickstart
+
+### Manual
+
+Follow these steps to get started with this application.
+
+#### Clone the repository
+
+Go to GitHub and [clone the repository](https://github.com/Victoran0/nao-medical-translator).
+
+#### Install dependencies
+
+Install the project dependencies.
+
+```bash
+npm install --legacy-peer-deps
+```
+
+_`--legacy-peer-deps` because `shadcn` is not well updated with `react@19`_
+
+#### Create environment variables
+
+in the root folder, create a new file called `.env.local`.
+
+```bash
+GROQ_API_KEY=YOUR-GROQ-API-KEY
+```
+
+For `GROQ_API_KEY` paste in the key you generated in the [Groq console](https://console.groq.com/).
+
+#### Run the application
+
+Once running, you can [access the application in your browser](http://localhost:3000).
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Walkthrough
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Nao Medical Translator Landing page
+  <br><br>
+  ![Landing Page](./public/screenshots/1..png)
+  <br><br><br>
+- Click on the Menu icon on the upper right corner to toggle the menu
+  <br><br>
+  ![Menu](./public/screenshots/2..png)
+  <br><br><br>
+- Select desired Input and Output Language before starting the conversation
+  <br><br>
+  ![Select Languages](./public/screenshots/3..png)
+  <br><br><br>
+- Speech will be trasncribed into the text area once input and output languages are set and speak button is clicked
+  <br><br>
+  ![Speech Transcription](./public/screenshots/4..png)
+  <br><br><br>
+- Allow Nao Medical Translator to finish translating
+  <br><br>
+  ![Translating](./public/screenshots/5..png)
+  <br><br><br>
+- When a translation is ongoing, the Speak button is disabled
+  <br><br>
+  ![Speech disabled](./public/screenshots/6..png)
+  <br><br><br>
+- Click the play button on the bottom right of the translation to listen to it.
+  <br><br>
+  ![Play Translation](./public/screenshots/7..png)
+  <br><br><br>
+- Click on the stop button to stop listening to the translation
+  <br><br>
+  ![Stop Playing Translation](./public/screenshots/8..png)
+  <br><br><br>
+- You can play and stop any of the previous translations. When a translation is currently being played and you play another, the Translator stops speaking the previous.
+  <br><br>
+  ![handling Multiple Translation](./public/screenshots/9..png)
+  ![handling Multiple Translation II](./public/screenshots/9b.png)
+  ![handling Multiple Translation III](./public/screenshots/9c.png)
+  <br><br>
+- Responsive user interface irregardless of the screen size
+  <br>
+  ![Responsive UI](./public/screenshots/10..png)
+  <br><br>
+  ![Responsive UI II](./public/screenshots/10b.png)
+  <br><br>
+  ![Responsive UI III](./public/screenshots/10c.png)
+  <br><br>
+  ![Responsive UI IV](./public/screenshots/10d.png)
+  <br><br>
+  ![Responsive UI V](./public/screenshots/10e.png)
+  <br><br>
+  ![Responsive UI VI](./public/screenshots/10f.png)
+  <br><br>
+  ![Responsive UI VII](./public/screenshots/10g.png)
+  <br><br>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## What tech stacks and libraries are used in this project?
 
-## Learn More
+- [Next.js](https://nextjs.org)
+- [Tailwind CSS](https://tailwindcss.com)
+- Langchain
+- Shadcn-UI: For the UI components
+- Meta Llama 4 scout via Groq: As the LLM Model
+- Vercel AI sdk: To stream AI response
+- motion: For interesting animations
+- Sonner: To toast messages
+- Lucide-react: For icons
+- Zustand: For state Management across components
 
-To learn more about Next.js, take a look at the following resources:
+- etc
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Issue Reporting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker.
 
-## Deploy on Vercel
+## Getting Help
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I will love to hear from you so if you have questions, comments or find a bug in the project, let me know! You can:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Open an issue in this repository](https://github.com/Victoran0/nao-medical-translator)
+
+## Author
+
+Victor Oluwadare
