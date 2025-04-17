@@ -82,7 +82,7 @@ export default function Navbar() {
             <div className="md:hidden">
             <div className="space-y-1 px-4 pb-4">
                 <Link
-                href="/chat"
+                href="/translate"
                 className="block text-gray-800 hover:bg-gray-100 rounded-md px-2 py-2"
                 >
                 Translate
