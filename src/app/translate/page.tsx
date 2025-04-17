@@ -136,7 +136,7 @@ const Translator = () => {
                                                         stopSpeech(() => setSpeakingIndex(-1))
                                                     }
                                                 >
-                                                    <CirclePause className='max-[700px]:size-5 text-black hover:border-none cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-2 -mb-1 size-6' />
+                                                    <CirclePause className='max-[700px]:size-5 text-black hover:border-none bg-[#ff6ec7] rounded-full cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
                                                 </button>
                                                 
                                             ) : (
@@ -153,7 +153,7 @@ const Translator = () => {
                                                         )
                                                     }
                                                 >
-                                                    <CirclePlay className='max-[700px]:size-5 text-black hover:border-none cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-2 -mb-1 size-6' />
+                                                    <CirclePlay className='max-[700px]:size-5 text-black hover:border-none cursor-pointer bg-[#ff6ec7] rounded-full hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
                                                 </button>
                                             )}
                                     </div>
@@ -185,7 +185,7 @@ const Translator = () => {
             {messages.length > 0 && <div className='h-4'/>}
             
             <div>
-                {messages.length === 0 && <div className='max-[700px]:h-[400px] mb-4 h-[50vh] flex items-center flex-col gap-10'>
+                {messages.length === 0 && <div className='mb-4 h-[50%] max-[700px]:h-[70%] flex items-center flex-col gap-10'>
                     <div className="pt-10 flex items-center justify-center gap-4">
                         <SparkleIcon className='size-12 text-gray-600' />
                         <div className="flex flex-col justify-center items-center gap-1">
@@ -197,24 +197,29 @@ const Translator = () => {
                     <div className="h-2"></div>
                     <div className="flex items-center gap-2 flex-wrap min-[700px]:px-10 max-[700px]:flex-col">
                         <span 
-                            className={cn('max-[700px]:text-sm text-gray-600 bbBox2 px-2 py-1 text-[16px]')}
+                            className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
                         >
-                            I really enjoyed my stay at your hotel!, Thanks.
+                            select languages (input and output).
                         </span>
                         <span 
-                            className={cn('max-[700px]:text-sm text-gray-600 bbBox2 px-2 py-1 text-[16px]' )}
+                            className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
                         >
-                            Is there any executive room available?
+                            Tap Speak
                         </span>
                         <span 
-                            className={cn('max-[700px]:text-sm text-gray-600 bbBox2 px-2 py-1 text-[16px]')}
+                            className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
                         >
-                            What time do i get my breakfast?
+                            Your speech will be transcribed into the text area.
                         </span>
                         <span 
-                            className={cn('max-[700px]:text-sm text-gray-600 bbBox2 px-2 py-1 text-[16px]')}
+                            className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]' 
                         >
-                            I hated my stay at your hotel! you guys suck!!!
+                            You can also type using your keyboard.
+                        </span>
+                        <span 
+                            className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
+                        >
+                            Click the Play button at the bottom right of the translation to listen!
                         </span>
                     </div>
                 </div>}
@@ -229,7 +234,7 @@ const Translator = () => {
                                 <input 
                                     type="text"
                                     className="text-[12px] px-4 py-3 w-full placeholder:text-[12px] rounded-full border border-gray-200 bg-white outline-none placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-blue-500/20 focus-visible:ring-offset-1 pr-12"
-                                    placeholder="Text to be translated"
+                                    placeholder="Speak or type text..."
                                     value={input}
                                     onChange={handleInputChange}
                                     required
