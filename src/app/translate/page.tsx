@@ -16,6 +16,7 @@ const Translator = () => {
     const [body, setBody] = useState<string>("")
     const containerRef = useRef<HTMLDivElement | null>(null)
     const [responseLoaded, setResponseLoaded] = useState<boolean>(false)
+    const [responseIsLoading, setResponseIsLoading] = useState<boolean>(false)
     const loadingRef = useRef<HTMLDivElement | null>(null)  
     const {inputLang, outputLang, speakingIndex, setSpeakingIndex} = useTranslatorStore((state) => state,);
 
@@ -30,6 +31,7 @@ const Translator = () => {
             toast.error("internal server error")
             console.log("useChat error: ", error)
             setResponseLoaded(true)
+            setResponseIsLoading(false)
             if (loadingRef.current) {
                 loadingRef.current.remove()
             }
@@ -37,6 +39,7 @@ const Translator = () => {
         onFinish: () => {
             console.log("finished")
             setResponseLoaded(true)
+            setResponseIsLoading(false)
             if (loadingRef.current) {
                 loadingRef.current.remove()
             }
@@ -59,10 +62,15 @@ const Translator = () => {
         handleSubmit(event)
         stopListening();
         if (responseLoaded) setResponseLoaded(false)
+        setResponseIsLoading(true)
         console.log("submitted")
     }
 
     const speechToText = () => {
+        if (responseIsLoading) {
+            toast.error("Translating. Please wait...")
+            return
+        }
         if (inputLang == "") {
             toast.error("Kindly select your input Language")
             return;
@@ -74,9 +82,6 @@ const Translator = () => {
         if (isListening) {
             stopListening()
         } 
-        if (loadingRef.current !== null) {
-            toast.error("Currently translating previous request, please wait...")
-        }
         startListening();
         toast.success("Listening...")
     }
@@ -136,7 +141,7 @@ const Translator = () => {
                                                         stopSpeech(() => setSpeakingIndex(-1))
                                                     }
                                                 >
-                                                    <CirclePause className='max-[700px]:size-5 text-black hover:border-none bg-[#ff6ec7] rounded-full cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
+                                                    <CirclePause className='text-black hover:border-none bg-[#ff6ec7] rounded-full cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
                                                 </button>
                                                 
                                             ) : (
@@ -153,7 +158,7 @@ const Translator = () => {
                                                         )
                                                     }
                                                 >
-                                                    <CirclePlay className='max-[700px]:size-5 text-black hover:border-none cursor-pointer bg-[#ff6ec7] rounded-full hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
+                                                    <CirclePlay className='text-black hover:border-none cursor-pointer bg-[#ff6ec7] rounded-full hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
                                                 </button>
                                             )}
                                     </div>
