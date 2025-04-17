@@ -84,17 +84,17 @@ const Translator = () => {
 
     return (
         <div className="grid items-center justify-items-center min-h-screen p-2 pb-2 gap-2 sm:p-2 font-[family-name:var(--font-geist-sans)]">
-        <div className={cn("flex w-fit items-center colorGradText")}>
+        {/* <div className={cn("flex w-fit items-center colorGradText")}>
             <h1 className="max-[700px]:text-[18px] font-[600] lg:text-2xl text-2xl py-2" >
                 Nao Medical
             </h1>
-        </div>
+        </div> */}
         {/* <div className="h-4"></div> */}
 
-        <motion.div className='max-[700px]:p-2 grid w-full mx-3 self-center overflow-x-scroll max-h-fit mb-16 items-end py-2 pb-4 rounded-lg bg-gray-200 shadow-inner'>
+        <motion.div className='p-2 max-[700px]:h-[60vh] h-[65.5vh] flex flex-col w-full mx-3 self-center overflow-x-scroll mb-16 justify-between rounded-lg bg-gray-200 shadow-inner'>
 
             {messages.length > 0 && (
-            <div className="h-[40vh] overflow-y-scroll w-full p-2 flex flex-col gap-2" id='message-container' ref={containerRef}>
+            <div className="overflow-y-scroll w-full p-2 flex flex-col gap-2" id='message-container' ref={containerRef}>
                 <AnimatePresence mode='sync'>
                     {messages.map((message, index) => {
                         const uniqueId = `fallback-${index}`
@@ -185,7 +185,7 @@ const Translator = () => {
             {messages.length > 0 && <div className='h-4'/>}
             
             <div>
-                {messages.length === 0 && <div className='mb-4 h-[50%] max-[700px]:h-[70%] flex items-center flex-col gap-10'>
+                {messages.length === 0 && <div className='mb-4 flex items-center flex-col gap-10'>
                     <div className="pt-10 flex items-center justify-center gap-4">
                         <SparkleIcon className='size-12 text-gray-600' />
                         <div className="flex flex-col justify-center items-center gap-1">
@@ -233,7 +233,7 @@ const Translator = () => {
                             <div className="relative w-[96%]">
                                 <input 
                                     type="text"
-                                    className="text-[12px] px-4 py-3 w-full placeholder:text-[12px] rounded-full border border-gray-200 bg-white outline-none placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-blue-500/20 focus-visible:ring-offset-1 pr-12"
+                                    className="text-[12px] px-4 py-4 w-full placeholder:text-[12px] rounded-full border border-gray-200 bg-white outline-none placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-blue-500/20 focus-visible:ring-offset-1 pr-12"
                                     placeholder="Speak or type text..."
                                     value={input}
                                     onChange={handleInputChange}
@@ -243,7 +243,7 @@ const Translator = () => {
                                 <button 
                                     title="send" 
                                     type="submit"
-                                    className="absolute inset-y-[6px] right-[7.1px] flex items-center justify-center size-8 rounded-full bg-gray-200 hover:opacity-75 active:opacity-25 transition-all duration-150"
+                                    className="absolute inset-y-[10px] right-[9px] flex items-center justify-center size-8 rounded-full bg-gray-200 hover:opacity-75 active:opacity-25 transition-all duration-150"
                                 >
                                     <Send className="size-5 text-gray-500 max-[700px]:size-4" />
                                 </button>
