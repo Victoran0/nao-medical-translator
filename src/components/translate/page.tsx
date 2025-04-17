@@ -193,7 +193,7 @@ const Translator = () => {
                         <span 
                             className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
                         >
-                            select languages (input and output).
+                            select languages (input and output)
                         </span>
                         <span 
                             className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
@@ -203,12 +203,12 @@ const Translator = () => {
                         <span 
                             className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
                         >
-                            Your speech will be transcribed into the text area.
+                            Your speech will be transcribed into the text area
                         </span>
                         <span 
                             className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]' 
                         >
-                            You can also type using your keyboard.
+                            You can also type using your keyboard
                         </span>
                         <span 
                             className='max-[700px]:text-sm text-center text-gray-600 bbBox2 px-2 py-1 text-[16px]'
