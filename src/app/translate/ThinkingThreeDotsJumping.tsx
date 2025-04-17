@@ -22,7 +22,7 @@ function ThinkingThreeDotsJumping() {
             className="container"
             exit={{ opacity: 0 }}
         >   
-            <motion.div variants={dotVariants} className="bg-gradient-to-r from-[#7367f0] via-[#ff6ec7] bg-[length:200%_200%] to-[#7367f0] bg-clip-text text-transparent text-[12px] font-[700]" >Thinking</motion.div>
+            <motion.div variants={dotVariants} className="bg-gradient-to-r from-[#7367f0] via-[#ff6ec7] bg-[length:200%_200%] to-[#7367f0] bg-clip-text text-transparent text-[12px] font-[700]" >Translating</motion.div>
             <motion.div className="dot bg-[#7367f0]" variants={dotVariants} />
             <motion.div className="dot bg-[#ff6ec7]" variants={dotVariants} />
             <motion.div className="dot bg-gradient-to-r from-[#7367f0] via-[#ff6ec7] bg-[length:200%_200%] to-[#7367f0]" variants={dotVariants} />
