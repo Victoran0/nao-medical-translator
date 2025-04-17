@@ -2,15 +2,15 @@
 import React, {useState, useEffect, useRef} from "react";
 import {AnimatePresence, motion} from 'motion/react'
 import { cn } from '@/lib/utils'
-import { Send, SparkleIcon, Mic, CirclePlay, CirclePause, ArrowRight } from 'lucide-react'
+import { Send, SparkleIcon, Mic, CirclePlay, CircleStop, ArrowRight } from 'lucide-react'
 import { toast } from 'sonner'
 import {useChat} from '@ai-sdk/react'
 import SelectInputLang from "./SelectInputLang";
 import SelectOutputlang from "./SelectOutputLang";
-import { useTranslatorStore } from "../providers/translator-store-provider";
+import { useTranslatorStore } from "../../app/providers/translator-store-provider";
 import UseSpeechRecognition from "./SpeechRecognition";
 import ThinkingThreeDotsJumping from "./ThinkingThreeDotsJumping";
-import { stopSpeech, textToSpeech } from "@/utils/textToSpeech";
+import UseTextToSpeech from "./UseTextToSpeech";
 
 const Translator = () => {
     const [body, setBody] = useState<string>("")
@@ -18,7 +18,8 @@ const Translator = () => {
     const [responseLoaded, setResponseLoaded] = useState<boolean>(false)
     const [responseIsLoading, setResponseIsLoading] = useState<boolean>(false)
     const loadingRef = useRef<HTMLDivElement | null>(null)  
-    const {inputLang, outputLang, speakingIndex, setSpeakingIndex} = useTranslatorStore((state) => state,);
+    const {inputLang, outputLang, speakingIndex} = useTranslatorStore((state) => state,);
+    const { stopSpeech, textToSpeech } = UseTextToSpeech();
 
 
 
@@ -67,10 +68,6 @@ const Translator = () => {
     }
 
     const speechToText = () => {
-        if (responseIsLoading) {
-            toast.error("Translating. Please wait...")
-            return
-        }
         if (inputLang == "") {
             toast.error("Kindly select your input Language")
             return;
@@ -88,18 +85,12 @@ const Translator = () => {
 
 
     return (
-        <div className="grid items-center justify-items-center min-h-screen p-2 pb-2 gap-2 sm:p-2 font-[family-name:var(--font-geist-sans)]">
-        {/* <div className={cn("flex w-fit items-center colorGradText")}>
-            <h1 className="max-[700px]:text-[18px] font-[600] lg:text-2xl text-2xl py-2" >
-                Nao Medical
-            </h1>
-        </div> */}
-        {/* <div className="h-4"></div> */}
+        <div className="grid items-center justify-items-center min-h-screen px-2 font-[family-name:var(--font-geist-sans)]">
 
-        <motion.div className='p-2 max-[700px]:h-[60vh] h-[65.5vh] flex flex-col w-full mx-3 self-center overflow-x-scroll mb-16 justify-between rounded-lg bg-gray-200 shadow-inner'>
+        <motion.div className='p-2 h-[430px] flex flex-col w-full mx-3 self-center overflow-x-scroll mb-16 justify-between rounded-lg bg-gray-200 shadow-inner'>
 
             {messages.length > 0 && (
-            <div className="overflow-y-scroll w-full p-2 flex flex-col gap-2" id='message-container' ref={containerRef}>
+            <div className=" w-full p-2 flex overflow-y-scroll h-[80%] flex-col gap-2" id='message-container' ref={containerRef}>
                 <AnimatePresence mode='sync'>
                     {messages.map((message, index) => {
                         const uniqueId = `fallback-${index}`
@@ -138,10 +129,10 @@ const Translator = () => {
                                                     title="Stop Listening to Translation"
                                                     className=""
                                                     onClick={() => 
-                                                        stopSpeech(() => setSpeakingIndex(-1))
+                                                        stopSpeech()
                                                     }
                                                 >
-                                                    <CirclePause className='text-black hover:border-none bg-[#ff6ec7] rounded-full cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
+                                                    <CircleStop className='text-black hover:border-none bg-[#ff6ec7] rounded-full cursor-pointer hover:opacity-75 active:opacity-30 transition-all duration-150 -ml-3 -mb-2 size-6' />
                                                 </button>
                                                 
                                             ) : (
@@ -152,9 +143,7 @@ const Translator = () => {
                                                     onClick={() => 
                                                         textToSpeech(
                                                             message.content, 
-                                                            outputLang, 
-                                                            () => setSpeakingIndex(-1),  
-                                                            () => setSpeakingIndex(index)
+                                                            index,
                                                         )
                                                     }
                                                 >
@@ -187,15 +176,15 @@ const Translator = () => {
             </div>
             )}
 
-            {messages.length > 0 && <div className='h-4'/>}
+            {/* {messages.length > 0 && <div className='h-4'/>} */}
             
-            <div>
-                {messages.length === 0 && <div className='mb-4 flex items-center flex-col gap-10'>
-                    <div className="pt-10 flex items-center justify-center gap-4">
+            <div className="">
+                {messages.length === 0 && <div className='mb-4 overflow-y-scroll h-[80%] min-[804px]:mb-10 min-[1233px]:h-[94%] min-[932px]:h-[98%] min-[480px]:h-[85%] flex items-center flex-col gap-3'>
+                    <div className="flex items-center min-[550px]:mt-5 justify-center gap-4">
                         <SparkleIcon className='size-12 text-gray-600' />
                         <div className="flex flex-col justify-center items-center gap-1">
                             <p className="max-[700px]:text-[12px] self-center text-gray-950 bgColorGrad text-[20px] text-center font-[500]">Nao Medical Translator</p>
-                            <p className="max-[700px]:text-sm text-gray-500 text-2xl px-2 stretchText mt-2">Translate Speech/Text professionally</p>
+                            <p className="max-[700px]:text-sm text-gray-500 text-xl px-2 stretchText mt-1">Translate Speech/Text professionally</p>
                         </div>
                     </div>
 
@@ -229,7 +218,7 @@ const Translator = () => {
                     </div>
                 </div>}
 
-                    
+                    <div>
                     {isListening ? (
                         <form 
                             className="relative flex items-center justify-center w-full" 
@@ -275,17 +264,18 @@ const Translator = () => {
 
                     ) : (
                         <div className="flex flex-col">
-                            <div className="h-1 w-[96%] self-center bg-gray-500 mb-3" />
+                            <div className="h-1 w-[96%] self-center bg-gray-500 mb-5" />
                             <div className="flex items-center gap-5 self-center max-[450px]:gap-2">
                                 <button 
                                     type="button"
-                                    className="flex items-center justify-center bgColorGrad text-gray-700 gap-1 cursor-pointer hover:scale-90 transition-all duration-150 active:opacity-25 min-[700px]:mr-2"
+                                    className="flex items-center justify-center bgColorGrad text-gray-700 gap-1 cursor-pointer hover:scale-90 transition-all duration-150 active:opacity-25 min-[400px]:mr-2 disabled:opacity-30 disabled:text-gray-500 disabled:cursor-not-allowed"
                                     onClick={speechToText}
+                                    disabled={responseIsLoading}
                                 >
                                     <p className="font-[600] text-[12px] my-[5px]">Speak</p>
                                     <Mic  className='max-[700px]:size-5 size-6 ' />
                                 </button>
-                                <div className="flex items-center justify-center min-[700px]:gap-3">
+                                <div className="flex items-center justify-center min-[400px]:gap-2 min-[700px]:gap-3">
                                     <SelectInputLang />
                                     <ArrowRight className='max-[700px]:size-5 size-6 ' />
                                     <SelectOutputlang />
@@ -293,6 +283,7 @@ const Translator = () => {
                             </div>
                         </div>
                     )}
+                    </div>
             </div>
             </motion.div>
         </div>
