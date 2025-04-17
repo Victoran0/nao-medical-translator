@@ -1,7 +1,7 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'sonner'
-import { useTranslatorStore } from '../providers/translator-store-provider';
+import { useTranslatorStore } from '../../app/providers/translator-store-provider';
 
 declare global {
     interface Window {
@@ -19,9 +19,18 @@ const UseSpeechRecognition = ({handleInputChange}: Props) => {
     const [transcript, setTranscript] = React.useState("");
     const recognitionRef = React.useRef<SpeechRecognition | null>(null);
     const {inputLang} = useTranslatorStore((state) => state,);
+    const [isAndroid, setIsAndroid] = useState(false);
     
     React.useEffect(() => { 
         if (typeof window === "undefined") return;
+
+        if (typeof navigator !== "undefined") {
+            const ua = navigator.userAgent.toLowerCase();
+            setIsAndroid(/android/.test(ua));
+            if (/android/.test(ua)) {
+                toast.error("Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead.");
+            }
+        }
 
         const SpeechRecognition =
             window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -58,7 +67,11 @@ const UseSpeechRecognition = ({handleInputChange}: Props) => {
             };
 
             recognition.onerror = (event) => {
-                toast.error("Speech recognition error, try again!");
+                if (isAndroid) {
+                    toast.error("Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead.")
+                } else {
+                    toast.error("Speech recognition error, try again!");
+                }
                 console.log("speech recognition error", event.error);
             };
 
@@ -66,6 +79,9 @@ const UseSpeechRecognition = ({handleInputChange}: Props) => {
                 setIsListening(false);
                 setTranscript("");
                 console.log("Speech recognition ended");
+                if (isAndroid) {
+                    toast.error("Speech recognition is broken on Android browsers due to a long-standing bug. Use iPhone or desktop instead.");
+                }
             };
         } catch (error) {
             toast.error("Speech Recognition init failed");
