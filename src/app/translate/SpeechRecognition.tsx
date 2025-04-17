@@ -20,52 +20,63 @@ const UseSpeechRecognition = ({handleInputChange}: Props) => {
     const recognitionRef = React.useRef<SpeechRecognition | null>(null);
     const {inputLang} = useTranslatorStore((state) => state,);
     
-    React.useEffect(() => {
-        if (!("webkitSpeechRecognition" in window)) {
-            toast.error("Your browser does not support Web speech API")
-            console.error("Web speech api is not supported")
+    React.useEffect(() => { 
+        if (typeof window === "undefined") return;
+
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+
+        if (!SpeechRecognition) {
+            toast.error("Your browser does not support Web Speech API");
+            console.log("Web Speech API not supported");
             return;
         }
 
-        recognitionRef.current = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        const recognition = recognitionRef.current;
-        recognition.interimResults = true;
-        recognition.lang = inputLang || "en-US"
-        recognition.continuous = true;
+        try {
+            recognitionRef.current = new SpeechRecognition();
+            const recognition = recognitionRef.current;
+            recognition.interimResults = true;
+            recognition.lang = inputLang || "en-US";
+            recognition.continuous = true;
 
-        if ("webkitSpeechRecognition" in window) {
-            const grammar = `#JSGF V1.0; grammar punctuation; public <mark> = . | , | ? | ! | ; | : | ' | " | ... `;
-            const speechRecognitionList = new window.webkitSpeechGrammarList();
-            speechRecognitionList.addFromString(grammar, 1);
-            recognition.grammars = speechRecognitionList;
-            
-        }
-        
-        recognition.onresult = (event) => {
-            let text = ""
-            for (let i = 0; i < event.results.length; i++) {
-                text += event.results[i][0].transcript
-                console.log(text);
-                handleInputChange({target: {value: `${text} ${" "} `}})
+            // Apply grammar only if supported
+            if (SpeechGrammarList && recognition.grammars) {
+                const grammar = `#JSGF V1.0; grammar punctuation; public <mark> = . | , | ? | ! | ; | : | ' | " | ... `;
+                const speechRecognitionList = new SpeechGrammarList();
+                speechRecognitionList.addFromString(grammar, 1);
+                recognition.grammars = speechRecognitionList;
             }
-            setTranscript(text);
-        };
 
-        recognition.onerror = (event) => {
-            toast.error("speech recognition error, Try again!")
-            console.log("speech recognition error", event.error);
-        }
+            recognition.onresult = (event) => {
+                let text = "";
+                for (let i = 0; i < event.results.length; i++) {
+                    text += event.results[i][0].transcript;
+                }
+                setTranscript(text);
+                handleInputChange({ target: { value: `${text} ` } } as any);
+            };
 
-        recognition.onend = (event) => {
-            setIsListening(false);
-            setTranscript("")
-            console.log("speech recognition ended");
+            recognition.onerror = (event) => {
+                toast.error("Speech recognition error, try again!");
+                console.log("speech recognition error", event.error);
+            };
+
+            recognition.onend = () => {
+                setIsListening(false);
+                setTranscript("");
+                console.log("Speech recognition ended");
+            };
+        } catch (error) {
+            toast.error("Speech Recognition init failed");
+            console.log("SpeechRecognition init error:", error);
         }
 
         return () => {
-            recognition.stop();
+            recognitionRef.current?.stop();
         };
-    }, [])
+    }, []);
+
 
     const startListening = () => {
         if (recognitionRef.current && !isListening) {

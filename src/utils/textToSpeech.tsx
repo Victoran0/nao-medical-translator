@@ -9,6 +9,7 @@ export function textToSpeech(
     onEndFunc: () => void, 
     onStartFunc: () => void,
 ) {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     const synth = window.speechSynthesis;
 
     // If already speaking, cancel and retry
@@ -68,6 +69,7 @@ export function textToSpeech(
 }
 
 export function stopSpeech(onEndFunc: () => void) {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     const synth = window.speechSynthesis;
     if (synth.speaking) {
         onEndFunc()
