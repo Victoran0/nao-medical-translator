@@ -10,7 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useTranslatorStore } from "../providers/translator-store-provider";
+import { useTranslatorStore } from "../../app/providers/translator-store-provider";
 
 const SelectOutputLang = () => {
     const {outputLang, manageLang} = useTranslatorStore((state) => state,);
@@ -27,7 +27,7 @@ const SelectOutputLang = () => {
         </SelectTrigger>
         <SelectContent>
             <SelectGroup>
-            <SelectLabel>Languages</SelectLabel>
+            <SelectLabel>Output Language</SelectLabel>
             <SelectItem value="en-US">English</SelectItem>
             <SelectItem value="fr-FR">French</SelectItem>
             <SelectItem value="es-ES">Spanish</SelectItem>
